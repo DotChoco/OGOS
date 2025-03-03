@@ -25,13 +25,12 @@ func Connect() {
 	}
 	defer db.Close()
 
-	id, err := insertUser(db, "MoureDev", "moure@mail.com")
-	if err != nil {
-		fmt.Println(" usuario no insertado:", err)
+	db_err := createTable(db)
+	if db_err != nil {
+		fmt.Println("tabla no creada:", db_err)
 		return
 	}
 
-	fmt.Println("usuario insertado con id:", id)
 	// fmt.Println(addrs)
 	// fmt.Println(dsn)
 }
@@ -39,7 +38,7 @@ func Connect() {
 func createTable(db *sql.DB) error {
 	query := `
 		CREATE TABLE IF NOT EXISTS users(
-			id INT AUTO_INCREMENT,
+			id INT NOT NULL AUTO_INCREMENT,
 			name VARCHAR(50),
 			email VARCHAR(50),
 			PRIMARY KEY (id)

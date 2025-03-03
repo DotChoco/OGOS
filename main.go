@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"ogos/src/db"
 	"ogos/src/models/anime"
 	"ogos/src/models/manga"
+	"ogos/src/server"
 )
 
 func main() {
@@ -13,6 +13,6 @@ func main() {
 	fmt.Println("", h, a)
 
 	fmt.Println("Hola buena tarde como 'etamo")
-	db.Connect()
-	// server.TurnOnServer()
+	// db.Connect()
+	server.TurnOnServer()
 }
