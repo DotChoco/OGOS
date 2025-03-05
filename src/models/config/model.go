@@ -1,6 +1,6 @@
 package config
 
-type Config struct {
-	MotherPath string
-	BackupPath string
+type Model struct {
+	MotherPath string `json:"mother_path"`
+	BackupPath string `json:"backup_path"`
 }
