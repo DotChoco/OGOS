@@ -9,6 +9,8 @@ import (
 )
 
 var addrs string = fmt.Sprintf("%s:%d", config.DB_Host, config.DB_PORT)
+var db *sql.DB
+var err error
 
 // TODO: Use SurrealDB into this proyect
 func Connect() {
@@ -18,7 +20,7 @@ func Connect() {
 		addrs,
 		config.DB_Name)
 
-	db, err := sql.Open("mysql", dsn)
+	db, err = sql.Open("mysql", dsn)
 
 	if err != nil {
 		panic(err)
