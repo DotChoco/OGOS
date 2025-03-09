@@ -2,7 +2,7 @@ package db
 
 import (
 	"ogos/src/models/anime"
-	"ogos/src/models/config"
+	"ogos/src/models/db/userconfig"
 	"ogos/src/models/manga"
 )
 
@@ -13,5 +13,5 @@ type DBData struct {
 	AnimeThumbnails []anime.Thumbnail
 	MangaThumbnails []manga.Thumbnail
 
-	Conf config.Model
+	UserConf userconfig.Model
 }

@@ -1,4 +1,4 @@
-package config
+package userconfig
 
 type Model struct {
 	MotherPath string `json:"mother_path"`

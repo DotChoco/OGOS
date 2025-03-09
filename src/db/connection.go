@@ -3,62 +3,57 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	config "ogos/src"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var addrs string = fmt.Sprintf("%s:%d", config.DB_Host, config.DB_PORT)
-var db *sql.DB
+var conf config.Database = config.GetDataBase()
+
+var addrs string = fmt.Sprintf("%s:%d", conf.DB_Host, conf.DB_PORT)
+var DB *sql.DB
 var err error
 
-// TODO: Use SurrealDB into this proyect
 func Connect() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s",
-		config.DB_User,
-		config.DB_Pass,
+		conf.DB_User,
+		conf.DB_Pass,
 		addrs,
-		config.DB_Name)
+		conf.DB_Name)
 
-	db, err = sql.Open("mysql", dsn)
+	DB, err = sql.Open("mysql", dsn)
 
 	if err != nil {
 		panic(err)
 	}
-	defer db.Close()
-
-	db_err := createTable(db)
-	if db_err != nil {
-		fmt.Println("tabla no creada:", db_err)
-		return
+	if err := DB.Ping(); err != nil {
+		log.Fatal(err)
 	}
 
-	// fmt.Println(addrs)
-	// fmt.Println(dsn)
+	fmt.Println("db connected")
+	// Ping()
+
+	// db_err := createTable(DB)
+	// if db_err != nil {
+	// 	fmt.Println(db_err)
+	// 	return
+	// }
 }
 
-func createTable(db *sql.DB) error {
-	query := `
-		CREATE TABLE IF NOT EXISTS users(
-			id INT NOT NULL AUTO_INCREMENT,
-			name VARCHAR(50),
-			email VARCHAR(50),
-			PRIMARY KEY (id)
-		);`
-	_, err := db.Exec(query)
-	return err
+func Disconnect() {
+	DB.Close()
+	println("db disconnected")
+	// Ping()
+
 }
 
-func insertUser(db *sql.DB, name string, email string) (int64, error) {
-	result, err := db.Exec("INSERT INTO users(name, email) VALUES (?, ?)", name, email)
-
-	if err != nil {
-		return 0, err
-	}
-	id, err := result.LastInsertId()
-	if err != nil {
-		return 0, err
+func Ping() {
+	// Ping
+	if err := DB.Ping(); err != nil {
+		log.Fatal(err)
+	} else {
+		println("todo chido")
 	}
 
-	return id, err
 }

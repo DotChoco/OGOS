@@ -19,5 +19,4 @@
 
 # Go workspace file
 go.work
-src/config.go
-src/config.go
+.config

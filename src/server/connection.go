@@ -6,11 +6,18 @@ import (
 	config "ogos/src"
 )
 
-var addrs string = fmt.Sprintf("%s:%d", config.Server_Host, config.Server_PORT)
+var conf config.Server = config.GetSever()
+var addrs string = fmt.Sprintf("%s:%d",
+	conf.Server_Host,
+	conf.Server_PORT)
 
 func TurnOnServer() {
 	println("http://" + addrs)
 	if err := http.ListenAndServe(addrs, nil); err != nil {
 		panic(err)
 	}
+}
+
+func TurnOffServer() {
+
 }
