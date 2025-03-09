@@ -16,11 +16,9 @@ type Model struct {
 
 // func _main() {
 // 	// adfa := getDataChunksByIds([]int16{1, 1, 1}, "asdad")
-
 // }
 
 // func _getDataChunksByIds(chunk []int16, field string) []string {
-
 // 	asdf := []string{"", "asdf"}
 // 	for i := 0; i < len(chunk); i++ {
 // 		//Search Items By Id's
